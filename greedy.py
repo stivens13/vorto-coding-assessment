@@ -1,3 +1,5 @@
+import math
+import random
 import sys
 
 from helper import euclidean_distance, calculate_route_distance, parse_input, calculate_total_cost
@@ -19,7 +21,7 @@ def greedy_insertion(loads):
             best_increase = float('inf')
 
             for load in remaining_loads:
-                increase = euclidean_distance(current_location, load.pickup) + euclidean_distance(load.pickup, load.dropoff)
+                increase = euclidean_distance(current_location, load.pickup) + load.distance
                 if current_distance + increase + euclidean_distance(load.dropoff, depot) <= MAX_DRIVE_TIME:
                     if increase < best_increase:
                         best_increase = increase
@@ -35,7 +37,7 @@ def greedy_insertion(loads):
 
         drivers.append(route)
 
-    total_cost = 500 * len(drivers) + sum(calculate_route_distance(driver) for driver in drivers)
+    total_cost = calculate_total_cost(drivers)
     return drivers, total_cost
 
 def main():

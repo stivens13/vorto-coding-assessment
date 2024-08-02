@@ -25,6 +25,7 @@ def parse_input(file_path):
             load_id = int(parts[0])
             pickup = tuple(map(float, parts[1].strip('()').split(',')))
             dropoff = tuple(map(float, parts[2].strip('()').split(',')))
-            loads.add(Load(load_id, pickup, dropoff))
+            distance = euclidean_distance(pickup, dropoff)
+            loads.add(Load(load_id, pickup, dropoff, distance))
     return loads
 
