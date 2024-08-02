@@ -1,7 +1,11 @@
 from models import Load
 from math import sqrt
+
 def euclidean_distance(point1, point2):
     return sqrt((point2[0] - point1[0]) ** 2 + (point2[1] - point1[1]) ** 2)
+
+def calculate_total_cost(drivers):
+    return 500 * len(drivers) + sum(calculate_route_distance(driver) for driver in drivers)
 
 def calculate_route_distance(route, depot=(0, 0)):
     total_distance = 0
