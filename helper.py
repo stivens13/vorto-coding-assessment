@@ -18,13 +18,13 @@ def calculate_route_distance(route, depot=(0, 0)):
     return total_distance
 
 def parse_input(file_path):
-    loads = []
+    loads = set()
     with open(file_path, 'r') as file:
         for line in file.readlines()[1:]:
             parts = line.strip().split()
             load_id = int(parts[0])
             pickup = tuple(map(float, parts[1].strip('()').split(',')))
             dropoff = tuple(map(float, parts[2].strip('()').split(',')))
-            loads.append(Load(load_id, pickup, dropoff))
+            loads.add(Load(load_id, pickup, dropoff))
     return loads
 
