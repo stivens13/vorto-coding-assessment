@@ -22,3 +22,10 @@ Mean cost results are persistent, however, mean time is strongly dependent on en
     ```
     python3 evaluateShared.py --cmd "python3 greedy.py" --problemDir "problemset" 
     ```
+
+## Other approaches attempted
+### Genetic Algorithm
+   Promising direction that would provide better cost efficiency with longer run time. Faced difficulties implementing a more cost-efficient solution - my results for a quick and dirty solution were worse than Greedy Insertion Algorithm
+   
+### Neo4j
+   Rather unorthodox but theoretically workable approach. In the materials I've read, neo4j or similar graph databases weren't mentioned, but using graph databases might be an efficient and effective approach 
