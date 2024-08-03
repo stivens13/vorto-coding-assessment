@@ -1,31 +1,31 @@
-import math
-import random
 import sys
 
-from helper import euclidean_distance, calculate_route_distance, parse_input, calculate_total_cost
+from helper import euclidean_distance, parse_input
 
-MAX_DRIVE_TIME = 720
+class GreedyInsertion:
+    def __init__(s, loads, max_drive_time=720):
+        s.loads = loads
+        s.depot = (0, 0)
+        s.max_drive_time = max_drive_time
 
-def greedy_insertion(loads):
-    depot = (0, 0)
-    drivers = []
-    remaining_loads = set(loads)
+    def calculate_routes(s):
+        drivers = []
+        remaining_loads = s.loads
 
-    while remaining_loads:
-        route = []
-        current_distance = 0
-        current_location = depot
+        while remaining_loads:
+            route, current_location, current_distance = s.find_optimal_route(
+                remaining_loads,
+                current_location=s.depot,
+                current_distance=0,
+                route=[])
 
-        while remaining_loads and current_distance <= MAX_DRIVE_TIME:
-            best_load = None
-            best_increase = float('inf')
+            drivers.append(route)
 
-            for load in remaining_loads:
-                increase = euclidean_distance(current_location, load.pickup) + load.distance
-                if current_distance + increase + euclidean_distance(load.dropoff, depot) <= MAX_DRIVE_TIME:
-                    if increase < best_increase:
-                        best_increase = increase
-                        best_load = load
+        return drivers
+
+    def find_optimal_route(s, remaining_loads, current_location, current_distance, route):
+        while remaining_loads and current_distance <= s.max_drive_time:
+            best_load, best_increase = s.get_best_load(remaining_loads, current_location, current_distance)
 
             if best_load is None:
                 break
@@ -35,10 +35,18 @@ def greedy_insertion(loads):
             current_location = best_load.dropoff
             remaining_loads.remove(best_load)
 
-        drivers.append(route)
+        return route, current_location, current_distance
 
-    total_cost = calculate_total_cost(drivers)
-    return drivers, total_cost
+    def get_best_load(s, remaining_loads, current_location, current_distance):
+        best_load = None
+        best_increase = float('inf')
+        for load in remaining_loads:
+            increase = euclidean_distance(current_location, load.pickup) + load.distance
+            if current_distance + increase + euclidean_distance(load.dropoff, s.depot) <= s.max_drive_time:
+                if increase < best_increase:
+                    best_increase = increase
+                    best_load = load
+        return best_load, best_increase
 
 def main():
     if len(sys.argv) != 2:
@@ -46,7 +54,8 @@ def main():
 
     file_path = sys.argv[1]
     loads = parse_input(file_path)
-    drivers, total_cost = greedy_insertion(loads)
+    greedy = GreedyInsertion(loads)
+    drivers = greedy.calculate_routes()
 
     for driver in drivers:
         load_ids = [load.load_id for load in driver]
