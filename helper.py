@@ -16,3 +16,7 @@ def parse_input(file_path):
             loads.add(Load(load_id, pickup, dropoff, distance))
     return loads
 
+def print_routes(drivers):
+    for driver in drivers:
+        load_ids = [load.load_id for load in driver]
+        print(f"[{','.join(map(str, load_ids))}]")

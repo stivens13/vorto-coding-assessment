@@ -1,6 +1,6 @@
 import sys
 
-from helper import euclidean_distance, parse_input
+from helper import euclidean_distance, parse_input, print_routes
 
 class GreedyInsertion:
     def __init__(s, loads, max_drive_time=720):
@@ -56,10 +56,8 @@ def main():
     loads = parse_input(file_path)
     greedy = GreedyInsertion(loads)
     drivers = greedy.calculate_routes()
+    print_routes(drivers)
 
-    for driver in drivers:
-        load_ids = [load.load_id for load in driver]
-        print(f"[{','.join(map(str, load_ids))}]")
 
 if __name__ == "__main__":
     main()
