@@ -1,6 +1,14 @@
 # Vorto Algorithmic Challenge
 
 ## Solution - Greedy Insertion Algorithm
+Greedy Insertion provides fast solution with relatively optimal results being a great feat for real-time or time-limited application.
+
+
+
+
+Mean cost results are persistent, however, mean time is strongly dependent on environment - I was receiving best results in PyCharm Terminal in clean conda env while Warp Terminal and cluttered Python interpreters yielded slower results.  
+
+![img.png](data/greedy_results.png)
 
 ## How to run
 
