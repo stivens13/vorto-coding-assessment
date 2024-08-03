@@ -1,5 +1,4 @@
 import sys
-
 from helper import euclidean_distance, parse_input, print_routes
 
 # GreedyInsertion provides algorithm for solving VRP
